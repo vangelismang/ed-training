@@ -62,7 +62,7 @@ public class UserServiceTest {
 	}
 
 	private User createUser(final String firstname, final String lastname, final String email) {
-		final User user = User.builder().firstname(firstname).lastname(lastname).email(email).build();
-		return user;
+
+	    return User.builder().firstname(firstname).lastname(lastname).email(email).build();
 	}
 }

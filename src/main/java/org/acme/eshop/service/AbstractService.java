@@ -4,18 +4,27 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import ch.qos.logback.classic.Level;
 import org.acme.eshop.model.BaseEntity;
 import org.acme.eshop.repository.BaseRepository;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
+@PropertySource("classpath:my.properties")
 public abstract class AbstractService<T extends BaseEntity> implements BaseService<T, Long> {
-	private static final Logger log = org.slf4j.LoggerFactory.getLogger(AbstractService.class);
+
+    @Value("${logging.level.service}")
+    private Level level;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public abstract BaseRepository<T, Long> getRepository();
 
 	@PostConstruct
 	private void init() {
-		log.debug("Starting {}.", this.getClass().getName());
+        logger.debug("Starting {}.", this.getClass().getName());
 	}
 
 
