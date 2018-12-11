@@ -1,16 +1,13 @@
 package org.acme.eshop.repository;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import org.acme.eshop.model.BaseEntity;
 
 public abstract class AbstractRepository<T extends BaseEntity> implements BaseRepository<T, Long> {
-	private final Map<Long, T> STORAGE = new LinkedHashMap();
+	private final Map<Long, T> STORAGE = new LinkedHashMap<>();
 
 	public abstract AtomicLong getSequence();
 
@@ -44,6 +41,6 @@ public abstract class AbstractRepository<T extends BaseEntity> implements BaseRe
 
 	@Override
 	public List<T> findAll() {
-		return STORAGE.values().stream().collect(Collectors.toList());
+		return new ArrayList<>(STORAGE.values());
 	}
 }
